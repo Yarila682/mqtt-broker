@@ -10,10 +10,10 @@ const CHANGE_STATUS_USER = 'CHANGE-STATUS-USER';
 
 let initialState = { 
     email: "",
-        password:"",
-        type: "guest",
-        alert_message: "",
-        statusValid: false,
+    password:"",
+    type: "guest",
+    alert_message: "",
+    statusValid: false,
 };
 
 const registrationReducer = (state = initialState, action) => {
@@ -36,44 +36,37 @@ const registrationReducer = (state = initialState, action) => {
             })
             return {
                 ...state,
-                newUser: {...state.newUser,
-                     email: action.email,
-                    password: md5(action.password),
-                    alert_message: response_data 
-                },
+                email: action.email,
+                password: md5(action.password),
+                alert_message: response_data 
             };
         case FORM_VALIDATOR:
             if(!EmailValidator.validate(action.email)){
                 return {
                     ...state,
-                    newUser: {...state.newUser, 
-                        alert_message: 'Email введен неверно!',
-                        statusValid: false,
-                    },
+                    alert_message: 'Email введен неверно!',
+                    statusValid: false,
+                   
                 };
             }
             if(action.email === '' || action.password === ''){
                 return {
                     ...state,
-                    newUser: {...state.newUser,
                     alert_message: "Заполните все поля!",
                     statusValid: false
-                    },
                 };
             }
         
             return {
                 ...state,
-                newUser: {...state.newUser, 
-                    email: action.email,
-                    statusValid: true, 
-                    alert_message: "OK!"
-                },
+                 email: action.email,
+                statusValid: true, 
+                alert_message: "OK!"
             };
         case CHANGE_STATUS_USER:
             return {
                 ...state,
-                newUser: {...state.newUser, type: action.typeUser},
+                type: action.typeUser,
             };
         default:
             return {state};
