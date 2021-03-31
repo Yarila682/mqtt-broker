@@ -1,0 +1,38 @@
+.main .menu-wrapper {
+    position: absolute;
+    top: 8px;
+    left: 300px;
+    width: 100%;
+    height: 90px;
+}
+
+.main .menu-wrapper .menu {
+    font-size: 20px;
+    color: black;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.main .menu-wrapper .menu .element-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.main .menu-wrapper ul li.menu-element {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    height: 84px;
+    padding: 5px !important;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+
+.main .menu-wrapper ul li.menu-element:hover {
+    color: #ffffff;
+    background-color:  rgb(210, 142, 250);
+}
+
+.main .menu-wrapper ul li.menu-element:active {
+    color: #ffffff;
+    background-color:  rgb(210, 142, 250);
+}

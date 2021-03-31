@@ -1,0 +1,54 @@
+.login .wrapper-title {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30%;
+    height: 100px;
+    
+}
+
+.login .window-login {
+    margin: 0 30%;
+    padding: 2% 5%;
+    border: 4px solid  rgb(210, 142, 250);
+    border-radius: 5px;
+}
+
+.login .window-login .wrapper-forms .input-group-text {
+    width: 80px;
+    background-color: rgb(139, 56, 187);
+    color: #ffffff;
+}
+
+.login .window-login .bottom-element {
+    display: block;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.login .window-login .bottom-element .forgot-password {
+    display: flex;
+    justify-content: center;
+}
+
+.login .window-login .bottom-element .forgot-password a {
+    text-decoration: none;
+    color: black;
+}
+
+.login .window-login .bottom-element .forgot-password a:hover {
+    text-decoration: none;
+    color: rgb(139, 56, 187)
+}
+
+.login .window-login .bottom-element .wrapper-button {
+    display: flex;
+    justify-content: center;
+}
+
+.login .window-login .bottom-element .wrapper-button .btn-primary {
+    margin-top: 10px;
+    background-color: rgb(139, 56, 187);
+    border-color:rgb(139, 56, 187);
+} 
