@@ -84,4 +84,14 @@ export const SendForm = (Email, Password) => ({type: SEND_FORM, email: Email, pa
 
 export const ChangeStatusUser = (TypeUser) => ({type: CHANGE_STATUS_USER, typeUser: TypeUser});
 
+export const SendDataThunkCreator = (email, password) => {
+    return (dispatch) => {
+        dispatch(FormValidator(email, password));
+        usersAPI.SendtoLogin(email, md5(password))
+        .then(data => {
+            response_data = data;  
+        })
+    }
+}
+
 export default  loginReducer;

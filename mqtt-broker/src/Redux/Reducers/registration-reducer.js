@@ -69,7 +69,7 @@ const registrationReducer = (state = initialState, action) => {
                 type: action.typeUser,
             };
         default:
-            return {state};
+            return state;
     }
 };
 
