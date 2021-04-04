@@ -14,6 +14,7 @@ let initialState = {
     type:"guest",
     alert_message: "",
     statusValid: false,
+    response: {}
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -28,10 +29,9 @@ const loginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 password: action.password,
-    
             };
         case SEND_FORM:
-            let response_data;
+            let response_data = {};
             usersAPI.SendtoLogin(action.email, md5(action.password)).then(data => {
                 response_data = data;  
             })
@@ -39,29 +39,28 @@ const loginReducer = (state = initialState, action) => {
                 ...state,
                 email: action.email,
                 password: md5(action.password),
-                alert_message: response_data
+                response: response_data
             };
         case FORM_VALIDATOR:
             if(!EmailValidator.validate(action.email)){
                 return {
                     ...state,
-                    alert_message: "Email введен неверно!",
                     statusValid: false,
+                    alert_message: "Email введен неверно!",
                 };
             }
             if(action.email === '' || action.password === ''){
                 return {
                     ...state,
-                    alert_message: "Заполните все поля!",
-                    statusValid: false
+                    status: true,
+                    statusValid: false,
+                    alert_message: "Заполните все поля!"
                 };
             }
             return {
                 ...state,
-                email: action.email,
-                password: action.password,
                 statusValid: true, 
-                alert_message: "OK!"
+                alert_message: "status of valid is OK!"
             };
         case CHANGE_STATUS_USER:
             return {
@@ -74,24 +73,24 @@ const loginReducer = (state = initialState, action) => {
 };
 
 
-export const onEmailChange = (Email) => ({type: UPDATE_EMAIL_INPUT, email: Email});
+export const onEmailChangeLogin = (Email) => ({type: UPDATE_EMAIL_INPUT, email: Email});
 
-export const onPasswordChange= (Password) => ({type: UPDATE_PASSWORD_INPUT, password: Password});
+export const onPasswordChangeLogin = (Password) => ({type: UPDATE_PASSWORD_INPUT, password: Password});
 
-export const FormValidator = (Email,Password) => ({type: FORM_VALIDATOR, email: Email, password: Password});
+export const FormValidatorLogin = (Email,Password) => ({type: FORM_VALIDATOR, email: Email, password: Password});
 
-export const SendForm = (Email, Password) => ({type: SEND_FORM, email: Email, password: Password});
+export const SendFormToLogin = (Email, Password) => ({type: SEND_FORM, email: Email, password: Password});
 
 export const ChangeStatusUser = (TypeUser) => ({type: CHANGE_STATUS_USER, typeUser: TypeUser});
 
-export const SendDataThunkCreator = (email, password) => {
-    return (dispatch) => {
-        dispatch(FormValidator(email, password));
-        usersAPI.SendtoLogin(email, md5(password))
-        .then(data => {
-            response_data = data;  
-        })
-    }
-}
+// export const SendDataThunkCreator = (email, password) => {
+//     return (dispatch) => {
+//         dispatch(FormValidator(email, password));
+//         usersAPI.SendtoLogin(email, md5(password))
+//         .then(data => {
+//             response_data = data;  
+//         })
+//     }
+// }
 
 export default  loginReducer;

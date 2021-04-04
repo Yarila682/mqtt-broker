@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 import Login from "../Login";
 import{
-    SendForm,
-    onEmailChange,
-    onPasswordChange,
-    FormValidator,
+    SendFormToLogin,
+    onEmailChangeLogin,
+    onPasswordChangeLogin,
+    FormValidatorLogin,
     ChangeStatusUser,
 } from "../../Redux/Reducers/login-reducer";
 
@@ -15,10 +15,10 @@ let mapStateToProps = (state) => {
 }
 
 const LoginContainer = connect(mapStateToProps, {
-    onEmailChange,
-    onPasswordChange,
-    FormValidator,
-    SendForm,
+    onEmailChangeLogin,
+    onPasswordChangeLogin,
+    FormValidatorLogin,
+    SendFormToLogin,
     ChangeStatusUser
 }) (Login);
 

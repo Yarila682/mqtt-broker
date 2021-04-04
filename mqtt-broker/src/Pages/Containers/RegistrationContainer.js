@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import Registration from "../Registration";
 import{
-    SendForm,
+    SendFormRegistration,
     onEmailChange,
     onPasswordChange,
     FormValidator,
@@ -18,7 +18,7 @@ const RegistrationContainer = connect(mapStateToProps, {
     onEmailChange,
     onPasswordChange,
     FormValidator,
-    SendForm,
+    SendFormRegistration,
     ChangeStatusUser
 }) (Registration);
 export default RegistrationContainer;

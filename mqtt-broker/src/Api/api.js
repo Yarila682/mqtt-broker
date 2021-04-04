@@ -22,6 +22,7 @@ export const usersAPI = {
         console.log(error)
       });
     },
+    
     SendtoRegistration (email, password) {
         return instance.post(
        'registration', 

@@ -7,24 +7,22 @@ export default function Login(props){
 
     let onEmailChange = () => {
         let Email = NewEmailElement.current.value;
-        props.onEmailChange(Email);
+        props.onEmailChangeLogin(Email);
     }
     let onPasswordChange = () => {
         let Password = NewPasswordElement.current.value;
-        props.onPasswordChange(Password);
-    }
-    let FormValidator = (Email, Password) => {
-        props.FormValidator(Email, Password);
+        props.onPasswordChangeLogin(Password);
     }
     let Send = () => {
         let Email = NewEmailElement.current.value;
         let Password = NewPasswordElement.current.value;
-        FormValidator(Email,Password);
+        props.FormValidatorLogin(Email, Password);
+        console.log(props.loginPage.status);
         if(!props.loginPage.statusValid){
             console.log(props.loginPage.alert_message);
             return;
         }
-        props.SendForm(Email, Password);
+        props.SendFormToLogin(Email, Password);
         
         console.log(props.loginPage.alert_message);
         if(props.loginPage.type === 'user'){

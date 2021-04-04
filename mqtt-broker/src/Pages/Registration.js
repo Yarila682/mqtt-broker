@@ -14,24 +14,19 @@ export default function Registration(props){
         let Password = NewPasswordElement.current.value;
         props.onPasswordChange(Password);
     }
-    let FormValidator = (Email, Password) => {
-        props.FormValidator(Email, Password);
-        if(props.registrationPage.user.statusValid){
-            return true;
-        }else return false;
-    }
+   
     let SendForm = () => {
         let Email = NewEmailElement.current.value;
         let Password = NewPasswordElement.current.value;
-        FormValidator(Email, Password)
-        if(!props.registrationPage.user.statusValid){
-            console.log(props.registrationPage.user.alert_message)
+        props.FormValidator(Email, Password)
+        if(!props.registrationPage.statusValid){
+            console.log(props.registrationPage.alert_message)
             return;
         }
         props.SendForm(Email, Password);
         
-        console.log(props.registrationPage.user.alert_message);
-        if(props.registrationPage.user.type === 'user'){
+        console.log(props.registrationPage.alert_message);
+        if(props.registrationPage.type === 'user'){
             NewEmailElement.current.value = '';
             NewPasswordElement.current.value = '';
         }

@@ -46,7 +46,6 @@ const registrationReducer = (state = initialState, action) => {
                     ...state,
                     alert_message: 'Email введен неверно!',
                     statusValid: false,
-                   
                 };
             }
             if(action.email === '' || action.password === ''){
@@ -79,7 +78,7 @@ export const onPasswordChange = (Password) => ({type: UPDATE_PASSWORD_INPUT, pas
 
 export const FormValidator = (Email,Password) => ({type: FORM_VALIDATOR, email: Email, password: Password});
 
-export const SendForm = (Email, Password) => ({type: SEND_FORM, email: Email, password: Password});
+export const SendFormRegistration = (Email, Password) => ({type: SEND_FORM, email: Email, password: Password});
 
 export const ChangeStatusUser = (TypeUser) => ({type: CHANGE_STATUS_USER, typeUser: TypeUser});
 
