@@ -33,7 +33,8 @@ const loginReducer = (state = initialState, action) => {
         case SEND_FORM:
             let response_data = {};
             usersAPI.SendtoLogin(action.email, md5(action.password)).then(data => {
-                response_data = data;  
+                response_data = data; 
+                console.log(data);
             })
             return {
                 ...state,

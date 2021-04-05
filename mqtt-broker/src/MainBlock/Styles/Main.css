@@ -1,24 +1,23 @@
-.main .menu-wrapper {
+.main  {
     width: 100%;
   }
   
-  .main .menu-wrapper a{
+  .main a{
     text-decoration: none;
     color: black;
   }
   
-  .main .menu-wrapper a:hover{
+  .main  a:hover{
     color:cornsilk;
   }
   
-  .main .menu-wrapper ul.menu {
+  .main  ul.menu {
     list-style: none;
     display: flex;
     flex-flow: row;
   }
   
-  .main .menu-wrapper li.menu-element {
+  .main li.menu-element {
     padding-left: 2%;
     cursor: pointer;
   }
-  
