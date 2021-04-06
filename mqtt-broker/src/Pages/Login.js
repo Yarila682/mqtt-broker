@@ -25,7 +25,7 @@ export default function Login(props){
         props.SendFormToLogin(Email, Password);
         
         console.log(props.loginPage.alert_message);
-        if(props.loginPage.type === 'user'){
+        if(props.loginPage.isAuth){
             props.ChangeStatusUser('user');
             NewEmailElement.current.value = '';
             NewPasswordElement.current.value = '';

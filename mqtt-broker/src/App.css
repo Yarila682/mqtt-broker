@@ -6,18 +6,38 @@
     height: 90px;
 }
 
-.main .menu-login{
+.main .menu-login .side-menu {
+    display: flex;
+    align-items: center;
     position: absolute;
-    top: 8px;
+    top: 7px;
     left: 52%;
     width: 100%;
+    height: 14%;
+}
+
+.main .menu-login .login-title {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 2%;
+    left: 57%;
+    width: 100%;
     height: 90px;
+}
+
+.main .menu-login .login-title p {
+    font-weight: bold;
 }
 
 .main .menu-wrapper .menu  {
     font-size: 20px;
     color: black;
     font-family: var(--bs-font-sans-serif);
+}
+
+.main .menu-login .login-title{
+    text-transform: uppercase;
 }
 
 .main .menu-login .side-menu {

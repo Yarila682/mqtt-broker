@@ -1,7 +1,7 @@
 import * as axios from "axios";
 
 const instance = axios.create({
-    // withCredentails: true, 
+    withCredentails: true, 
     // headers: (),
     baseURL: 'http://127.0.0.1:8000/'
 });
@@ -37,5 +37,22 @@ export const usersAPI = {
       }, (error) => {
         console.log(error)
       });
+    },
+
+    getProfile(userId) {
+      return instance.get(
+        'profile' + userId, 
+       ).then(response => {
+         return response.data        
+       }, (error) => {
+         console.log(error)
+       });
     }
+
+}
+
+export const authAPI = {
+  me() {
+    return instance.get('me')
+  }
 }

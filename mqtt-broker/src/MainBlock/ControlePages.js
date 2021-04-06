@@ -2,6 +2,7 @@ import Home from '../Pages/Home';
 import LoginContainer from '../Pages/Containers/LoginContainer';
 import HowTo from '../Pages/HowTo';
 import RegistrationContainer from '../Pages/Containers/RegistrationContainer';
+import ProfileContainer from '../Pages/Containers/ProfileContainer';
 
 import {
     Route,
@@ -17,6 +18,7 @@ export default function ControlPages(props){
                 <Route path='/howto' component={HowTo} />
                 <Route path='/login'  render={ () => <LoginContainer />} />
                 <Route path='/registration' render={ () => <RegistrationContainer />} />
+                <Route path='/profile:userId' render={ () => <ProfileContainer />} />
                 <Redirect from='/' to='/home'/>
             </Switch>
         </div>

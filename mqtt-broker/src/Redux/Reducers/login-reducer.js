@@ -13,8 +13,7 @@ let initialState = {
     password:"",
     type:"guest",
     alert_message: "",
-    statusValid: false,
-    response: {}
+    isAuth: false,
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -31,16 +30,12 @@ const loginReducer = (state = initialState, action) => {
                 password: action.password,
             };
         case SEND_FORM:
-            let response_data = {};
             usersAPI.SendtoLogin(action.email, md5(action.password)).then(data => {
-                response_data = data; 
-                console.log(data);
+                console.log(data.status);
             })
             return {
                 ...state,
-                email: action.email,
-                password: md5(action.password),
-                response: response_data
+                isAuth: true,
             };
         case FORM_VALIDATOR:
             if(!EmailValidator.validate(action.email)){

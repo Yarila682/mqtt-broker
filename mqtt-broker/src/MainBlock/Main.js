@@ -13,9 +13,15 @@ export default function Main(props){
         </ul>
       </div>
       <div className="menu-login">
-        <ul className="side-menu">
-          <SideMenuItemsContainer />
-        </ul>
+        { props.isAuth ? 
+          <div className="login-title">
+            <p>{props.email}</p>
+          </div>:
+          <ul className="side-menu">
+            <SideMenuItemsContainer />
+          </ul>
+        }
+  
       </div>
       <div className="renderMain">
           <ControlPages />
