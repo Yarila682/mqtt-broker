@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Profile from "../Profile";
 import {usersAPI} from '../../Api/api.js';
 import {setUserProfile, toggleIsFetching} from '../../Redux/Reducers/profile-reducer';
-import Preloader from '../../Images/preloader';
+import Preloader from '../../Common/Preloader';
 import { withRouter } from 'react-router-dom';
 
 

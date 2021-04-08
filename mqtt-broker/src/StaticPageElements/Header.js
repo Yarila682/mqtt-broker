@@ -6,7 +6,7 @@ function Header(props) {
     <div className="header">
       <div className="wrapper">
         <div className="logo-wrapper">
-          <img className="logo" src={logo}/>
+          <img className="logo" src={logo} alt="logo"/>
         </div>
         <div className="title-wrapper">
           <h2 className="title">MQTT Broker</h2>

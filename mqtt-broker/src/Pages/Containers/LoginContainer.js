@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Login from "../Login";
+import Login2 from "../Login2";
 import{
     SendFormToLogin,
     onEmailChangeLogin,
@@ -20,6 +20,6 @@ const LoginContainer = connect(mapStateToProps, {
     FormValidatorLogin,
     SendFormToLogin,
     ChangeStatusUser
-}) (Login);
+}) (Login2);
 
 export default LoginContainer;

@@ -53,6 +53,12 @@ export const usersAPI = {
 
 export const authAPI = {
   me() {
-    return instance.get('me')
-  }
+    return instance.get('me');
+  },
+  login(email, password) {
+    return instance.post('login', {email, password});
+  },
+  logout() {
+    return instance.delete('login');
+  },
 }
