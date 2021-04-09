@@ -1,10 +1,9 @@
 import * as axios from "axios";
 
-const instance = axios.create({
-    withCredentails: true, 
-    // headers: (),
-    baseURL: 'http://127.0.0.1:8000/'
+const instance = axios.create({ 
+  baseURL: 'http://127.0.0.1:8000/',
 });
+ 
 
 export const usersAPI = {
     SendtoLogin (email, password) {
@@ -52,11 +51,20 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-  me() {
-    return instance.get('me');
+  me(token) {
+    return instance.get('me',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*',
+      }
+    });
   },
   login(email, password) {
-    return instance.post('login', {email, password});
+    return instance.post('login', {
+        user_data: {
+        email: email,
+        passwordhash: password,
+      }});
   },
   logout() {
     return instance.delete('login');

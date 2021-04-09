@@ -1,6 +1,9 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
+import md5 from 'md5';
 import {Input} from '../Common/FormsControl';
+import {login} from '../Redux/Reducers/auth-reducer';
 import './Styles/Login.css';
 
 const LoginForm = (props) => {
@@ -41,11 +44,11 @@ const LoginReduxForm = reduxForm( {
 
 const Login2 = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
+        props.login(formData.email, md5(formData.password));
     }
     return <div>
         <LoginReduxForm onSubmit = {onSubmit}/> 
     </div>
 }
 
-export default Login2;
+export default connect(null, {login}) (Login2);

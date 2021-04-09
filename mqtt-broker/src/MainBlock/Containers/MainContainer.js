@@ -20,8 +20,8 @@ class MainContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.loginPage.isAuth,
-    email: state.loginPage.email,
+    isAuth: state.auth.isAuth,
+    email: state.auth.email,
 })
 
 export default connect (mapStateToProps, {setAuthUserData}) (MainContainer);
