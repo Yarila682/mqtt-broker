@@ -1,9 +1,10 @@
 import React from 'react';
+import Preloader from '../Common/Preloader';
 
 
 const Profile = (props) => {
     if(!props.profile) {
-        //preloader
+        <Preloader />
     }
     return(
         <div className="profile"> 
@@ -13,6 +14,9 @@ const Profile = (props) => {
             <div className="information-list">
                 <div className="email">
                     <h4>Email:</h4>
+                    {
+                        props.email
+                    }
                 </div>
             </div>
         </div>

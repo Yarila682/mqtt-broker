@@ -1,23 +1,67 @@
 .main  {
-    width: 100%;
-  }
-  
-  .main a{
-    text-decoration: none;
-    color: black;
-  }
-  
-  .main  a:hover{
-    color:cornsilk;
-  }
-  
-  .main  ul.menu {
-    list-style: none;
-    display: flex;
-    flex-flow: row;
-  }
-  
-  .main li.menu-element {
-    padding-left: 2%;
-    cursor: pointer;
-  }
+  width: 100%;
+}
+
+.main a{
+  text-decoration: none;
+  color: black;
+}
+
+.main  a:hover{
+  color:cornsilk;
+}
+
+.main  ul.menu {
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+}
+
+.main li.menu-element {
+  padding-left: 2%;
+  cursor: pointer;
+}
+/* ************************************************************************* */
+
+.main .menu-login .login-title{
+  display: block;
+  height: 94px;
+  width: 200px;
+}
+
+.main .menu-login .login-title .wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 94px;
+  width: 200px;
+}
+
+.main .menu-login .login-title ol {
+  list-style: none;
+  display: none;
+  padding: 0;
+}
+
+.main .menu-login .login-title ol li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  background-color: rgb(253, 203, 66);
+  height: 87px;
+  width: 200px;
+}
+
+.main .menu-login .login-title ol li:hover{
+  background-color: rgb(210, 142, 250);
+}
+
+.main .menu-login .login-title .wrap:hover{
+  color: #ffffff;
+  background-color:  rgb(210, 142, 250);
+}
+
+.main .menu-login .login-title:hover ol{
+  display: block;
+}

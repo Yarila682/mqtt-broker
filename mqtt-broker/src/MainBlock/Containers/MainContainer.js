@@ -6,12 +6,7 @@ import setAuthUserData from '../../Redux/Reducers/auth-reducer';
 
 class MainContainer extends React.Component {
     componentDidMount() {
-        authAPI.me().then(response => {
-            if(response.data.status){
-                let {id, email} = response.data.user;
-                this.props.setAuthUserData(id, email);
-            }
-        })
+        // df
     }
     render(){ 
         return <Main {...this.props} />
@@ -22,6 +17,7 @@ class MainContainer extends React.Component {
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     email: state.auth.email,
+    token: state.auth.token,
 })
 
 export default connect (mapStateToProps, {setAuthUserData}) (MainContainer);

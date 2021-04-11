@@ -1,8 +1,7 @@
 import Home from '../Pages/Home';
-// import LoginContainer from '../Pages/Containers/LoginContainer';
-import Login2 from '../Pages/Login2'
+import Login from '../Pages/Login'
 import HowTo from '../Pages/HowTo';
-import RegistrationContainer from '../Pages/Containers/RegistrationContainer';
+import Registration from '../Pages/Registration';
 import ProfileContainer from '../Pages/Containers/ProfileContainer';
 
 import {
@@ -17,10 +16,9 @@ export default function ControlPages(props){
             <Switch>
                 <Route path='/home'  component={Home} />
                 <Route path='/howto' component={HowTo} />
-                {/* <Route path='/login'  render={ () => <LoginContainer />} /> */}
-                <Route path='/login'  component={Login2} />
-                <Route path='/registration' render={ () => <RegistrationContainer />} />
-                <Route path='/profile:userId' render={ () => <ProfileContainer />} />
+                <Route path='/login'  component={Login} />
+                <Route path='/registration'  component={Registration} />
+                <Route path='/profile' render={ () => <ProfileContainer />} />
                 <Redirect from='/' to='/home'/>
             </Switch>
         </div>

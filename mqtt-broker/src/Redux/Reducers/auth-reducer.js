@@ -6,7 +6,6 @@ const SET_TOKEN = 'SET_TOKEN';
 let initialState = {
     id: null,
     email: null,
-    password: null,
     token: "",
     isAuth: false,
 }
@@ -16,11 +15,9 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
             case SET_TOKEN:
-                console.log(action.token)
                 return{
                     ...state,
                     token: action.token
@@ -31,9 +28,9 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (userId, email, isAuth) => ({type: SET_USER_DATA, data: {userId, email, isAuth}});
-
 export const setAuthToken = (token) => ({type: SET_TOKEN, token: token});
+
+export const setAuthUserData = ({id, email, isAuth}) => ({type: SET_USER_DATA, data: {id, email, isAuth}});
 
 export const getAuthUserData = (token) => (dispatch) => {
     authAPI.me(token).then(response => {
@@ -46,15 +43,27 @@ export const getAuthUserData = (token) => (dispatch) => {
     })
 }
 
+export const registration = (email, password) => (dispatch) => {
+    authAPI.registration(email, password).then(response => {
+        console.log(response);
+        if(response.data.status){
+            dispatch(setAuthToken(response.data.user.token))
+            let id = response.data.user.id;
+            let email = response.data.user.user_data.email;
+            dispatch(setAuthUserData(id, email, true));
+        }
+    })
+}
+
 export const login = (email, password) => (dispatch) => {
     authAPI.login(email, password).then(response => {
         console.log(response);
         if(response.data.status){
             dispatch(setAuthToken(response.data.user.token))
-            dispatch(getAuthUserData(response.data.user.token));
-            // let id = response.data.user.id;
-            // let email = response.data.user.user_data.email;
-            // dispatch(setAuthUserData(id, email, true));
+            let id = response.data.user.id;
+            let email = response.data.user.user_data.email;
+            let isAuth = response.data.status;
+            dispatch(setAuthUserData({id, email, isAuth}));
         }
     })
 }

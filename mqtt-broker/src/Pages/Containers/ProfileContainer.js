@@ -1,19 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import Profile from "../Profile";
-import {usersAPI} from '../../Api/api.js';
+import {authAPI} from '../../Api/api.js';
 import {setUserProfile, toggleIsFetching} from '../../Redux/Reducers/profile-reducer';
 import Preloader from '../../Common/Preloader';
-import { withRouter } from 'react-router-dom';
+
 
 
 class ProfileContainer extends React.Component {
     componentDidMount(){
         this.props.toggleIsFetching(true);
-        let userId = this.props.match.params.userId;
-        usersAPI.getProfile(userId).then(response => {
+        authAPI.me(this.props.token).then(response => {
+            console.log(response)
+            let email = response.data.user.user_data.email;
+
+            this.props.setUserProfile({email, email});
             this.props.toggleIsFetching(false);
-            this.props.setUserProfile(response.data);
         });
     }
 
@@ -26,9 +28,9 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    email: state.profilePage.email,
+    isFetching: state.profilePage.isFetching,
+    token: state.auth.token,
 });
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-
-export default connect(mapStateToProps, {setUserProfile, toggleIsFetching}) (WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {setUserProfile, toggleIsFetching}) (ProfileContainer);

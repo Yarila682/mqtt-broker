@@ -1,8 +1,9 @@
+import React from 'react';
 import ControlPages from './ControlePages'
 import MenuItemsContainer from './Containers/MenuItemsContainer';
 import SideMenuItemsContainer from './Containers/SideMenuItemsContainer'
+import {Link} from 'react-router-dom';
 import './Styles/Main.css';
-import React from 'react';
 
 export default function Main(props){
   return(
@@ -14,8 +15,12 @@ export default function Main(props){
       </div>
       <div className="menu-login">
         { props.isAuth ? 
-          <div className="login-title">
-            <p>{props.email}</p>
+          <div className="login-title">  
+            <div className="wrap"><Link to="/profile">{props.email}</Link> </div>
+            <ol>
+              <li><Link to="/home">Кофигурация Брокера</Link></li>
+              <li><Link to="/home">Выйти</Link></li>
+            </ol>
           </div>:
           <ul className="side-menu">
             <SideMenuItemsContainer />

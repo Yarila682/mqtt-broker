@@ -1,67 +1,54 @@
-import './Styles/Registration.css';
 import React from 'react';
+import {reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
+import md5 from 'md5';
 import {Link} from 'react-router-dom';
+import {Input} from '../Common/FormsControl';
+import {registration} from '../Redux/Reducers/auth-reducer';
+import './Styles/Registration.css';
 
-export default function Registration(props){
-    let NewEmailElement = React.createRef();
-    let NewPasswordElement = React.createRef();
-
-    let onEmailChange = () => {
-        let Email = NewEmailElement.current.value;
-        props.onEmailChange(Email);
-    }
-    let onPasswordChange = () => {
-        let Password = NewPasswordElement.current.value;
-        props.onPasswordChange(Password);
-    }
-   
-    let SendForm = () => {
-        let Email = NewEmailElement.current.value;
-        let Password = NewPasswordElement.current.value;
-        props.FormValidator(Email, Password)
-        if(!props.registrationPage.statusValid){
-            console.log(props.registrationPage.alert_message)
-            return;
-        }
-        props.SendForm(Email, Password);
-        
-        console.log(props.registrationPage.alert_message);
-        if(props.registrationPage.type === 'user'){
-            NewEmailElement.current.value = '';
-            NewPasswordElement.current.value = '';
-        }
-    }
-
-    return(
-        <div className = "registration">
-            <div className = "wrapper-title">
-                <div className = "title">
-                    <h3>Добро пожаловать в MQTT Broker!</h3>
+const RegistrationForm = (props) => {
+    return (
+        <form onSubmit = {props.handleSubmit}>
+            <div className ="wrapper-title">
+                <div className ="title">
+                  <h3>Добро пожаловать в MQTT Broker!</h3>
                 </div>
             </div>
-        
-        <div className = "window-registration">
-            <div className = "wrapper-forms">
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="mailLabel">E-mail</span>
-                    <input  ref={NewEmailElement} onChange={onEmailChange} id="email" name="email" type="email"  className="form-control" placeholder="Email" aria-label="Email" aria-describedby="mailLabel" />
+            <div className="window-registration">
+                <div className="wrapper-forms">
+                    <div className="input-group mb-3">
+                        <Field name={"email"}  component={Input} title="E-mail" id="email" type="email"  className="form-control" placeholder="Email" aria-label="Email" aria-describedby="mailLabel"/>
+                    </div>
+                    <div className="input-group mb-3">
+                        <Field name={"password"}  component={Input} title="Пароль" id="password" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel"/>
+                    </div>
                 </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="passwordLabel">Пароль</span>
-                    <input ref = {NewPasswordElement} onChange={onPasswordChange} id="password" name="password" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel" />
-                </div>
-            </div>
-
-            <div className = "bottom-element">
-                    <div className="account-exists">
-                        
-                        <Link to = {'/login'}>Уже есть аккаунт?</Link>
-                    </div>               
+    
+                <div className = "bottom-element">
+                <div className="account-exists">
+                    <Link to = {'/login'}>Уже есть аккаунт?</Link>
+                </div>               
                 <div className = "wrapper-button">
-                    <button onClick={SendForm} type="submit" className="btn btn-primary">Войти</button>
+                    <button className="btn btn-primary">Войти</button>
                 </div>
             </div>
-        </div>
-    </div>
+            </div>
+        </form>
     )
-};
+}
+
+const RegistrationReduxForm = reduxForm( {
+    form: 'registration',
+})(RegistrationForm)
+
+const Registration2 = (props) => {
+    const onSubmit = (formData) => {
+        props.registration(formData.email, md5(formData.password));
+    }
+    return <div>
+        <RegistrationReduxForm onSubmit = {onSubmit}/> 
+    </div>
+}
+
+export default connect(null, {registration}) (Registration2);
