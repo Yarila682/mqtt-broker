@@ -6,7 +6,7 @@ const SET_TOKEN = 'SET_TOKEN';
 let initialState = {
     id: null,
     email: null,
-    token: "",
+    token: null,
     isAuth: false,
 }
 
@@ -34,7 +34,6 @@ export const setAuthUserData = ({id, email, isAuth}) => ({type: SET_USER_DATA, d
 
 export const getAuthUserData = (token) => (dispatch) => {
     authAPI.me(token).then(response => {
-        console.log(response);
         if(response.data.status){
             let id = response.data.user.id;
             let email = response.data.user.user_data.email;
@@ -45,7 +44,6 @@ export const getAuthUserData = (token) => (dispatch) => {
 
 export const registration = (email, password) => (dispatch) => {
     authAPI.registration(email, password).then(response => {
-        console.log(response);
         if(response.data.status){
             dispatch(setAuthToken(response.data.user.token))
             let id = response.data.user.id;
@@ -69,11 +67,8 @@ export const login = (email, password) => (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
-    authAPI.logout().then(response => {
-        if(!response.data.status){
-            dispatch(setAuthUserData(null, null, null, false));
-        }
-    })
+    dispatch(setAuthUserData(0, null, false));
+    dispatch(setAuthToken(null));
 }
 
 export default authReducer;

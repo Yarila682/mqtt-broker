@@ -1,17 +1,15 @@
 import React from 'react';
 import Main from '../Main';
 import {connect} from 'react-redux';
-import {authAPI} from '../../Api/api';
-import setAuthUserData from '../../Redux/Reducers/auth-reducer';
+import {getAuthUserData,logout } from '../../Redux/Reducers/auth-reducer';
 
 class MainContainer extends React.Component {
     componentDidMount() {
-        // df
+        this.props.getAuthUserData();
     }
     render(){ 
         return <Main {...this.props} />
     }
-    
 }
 
 const mapStateToProps = (state) => ({
@@ -20,4 +18,4 @@ const mapStateToProps = (state) => ({
     token: state.auth.token,
 })
 
-export default connect (mapStateToProps, {setAuthUserData}) (MainContainer);
+export default connect (mapStateToProps, {getAuthUserData, logout}) (MainContainer);

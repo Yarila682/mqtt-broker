@@ -3,6 +3,7 @@ import Login from '../Pages/Login'
 import HowTo from '../Pages/HowTo';
 import Registration from '../Pages/Registration';
 import ProfileContainer from '../Pages/Containers/ProfileContainer';
+import ConfigureContainer from '../Pages/Containers/ConfigureContainer';
 
 import {
     Route,
@@ -19,6 +20,7 @@ export default function ControlPages(props){
                 <Route path='/login'  component={Login} />
                 <Route path='/registration'  component={Registration} />
                 <Route path='/profile' render={ () => <ProfileContainer />} />
+                <Route path='/configure'  render={ () => <ConfigureContainer />} />
                 <Redirect from='/' to='/home'/>
             </Switch>
         </div>

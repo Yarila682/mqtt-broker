@@ -2,6 +2,14 @@
   width: 100%;
 }
 
+.main .menu-wrapper {
+  position: fixed;
+}
+
+.main .menu-login .login-title {
+  position: fixed;
+}
+
 .main a{
   text-decoration: none;
   color: black;

@@ -1,11 +1,8 @@
 import React from 'react';
-import Preloader from '../Common/Preloader';
 
 
 const Profile = (props) => {
-    if(!props.profile) {
-        <Preloader />
-    }
+
     return(
         <div className="profile"> 
             <div className = "title">

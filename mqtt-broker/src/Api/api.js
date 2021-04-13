@@ -34,8 +34,16 @@ export const authAPI = {
         email: email,
         passwordhash: password,
       }});
-  },
-  logout() {
-    return instance.delete('login');
+  }
+}
+
+export const topicAPI = {
+  list_topics(token) {
+    console.log(token)
+    return instance.get('list_topics',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
   },
 }

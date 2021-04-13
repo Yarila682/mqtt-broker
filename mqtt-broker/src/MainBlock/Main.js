@@ -14,12 +14,18 @@ export default function Main(props){
         </ul>
       </div>
       <div className="menu-login">
+        {
+          console.log("here main")
+        }
+        {
+          console.log(props.isAuth)
+        }
         { props.isAuth ? 
           <div className="login-title">  
             <div className="wrap"><Link to="/profile">{props.email}</Link> </div>
             <ol>
-              <li><Link to="/home">Кофигурация Брокера</Link></li>
-              <li><Link to="/home">Выйти</Link></li>
+              <li><Link to="/configure">Конфигурация Брокера</Link></li>
+              <li onClick={props.logout}><Link to="/login">Выйти</Link></li>
             </ol>
           </div>:
           <ul className="side-menu">
