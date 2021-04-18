@@ -26,7 +26,7 @@ const ConfigureForm = (props) => {
                             <div className="wrapper">
                                 <div className="prefix"><b>Новый топик:</b></div>
                                 <div className="input-group mb-3">
-                                    <Field name={"topicname"}  component={Input} title="topic" id="topicname" type="text"  className="form-control" placeholder="topicname" aria-label="topicname" />
+                                    <Field name={"topicname"}  component={Input} title={props.email} id="topicname" type="text"  className="form-control" placeholder="topicname" aria-label="topicname" required/>
                                 </div>
                                 <div className = "wrapper-button">
                                     <button className="btn btn-primary">Добавить</button>
@@ -85,10 +85,13 @@ class ConfigureContainer extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         topicAPI.list_topics(this.props.token).then(response => {
-            let id = response.data.topic.id;
-            let topicname = response.data.topic.name;
-            let passwordtopichash = response.data.topic.password;
-            this.props.setTopicData(id, topicname, passwordtopichash);
+            console.log(response)
+            if(response.data.status){
+                let id = response.data.topic.id;
+                let topicname = response.data.topic.name;
+                let passwordtopichash = response.data.topic.password;
+                this.props.setTopicData(id, topicname, passwordtopichash);
+            }
             this.props.toggleIsFetching(false);
         })
     }
@@ -100,12 +103,13 @@ class ConfigureContainer extends React.Component {
     render() {
         return <>
         { this.props.isFetching ? <Preloader /> : null}
-            <ConfigureReduxForm onSubmit = {this.onSubmit}/>
+            <ConfigureReduxForm onSubmit = {this.onSubmit} {...this.props}/>
         </>
     }    
 }
 
 let mapStateToProps = (state) => ({
+    email: state.profilePage.email,
     name: state.configurePage.name,
     isFetching: state.configurePage.isFetching,
     token: state.auth.token,

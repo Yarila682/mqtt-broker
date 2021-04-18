@@ -26,10 +26,10 @@ const RegistrationForm = (props) => {
             <div className="window-registration">
                 <div className="wrapper-forms">
                     <div className="input-group mb-3">
-                        <Field name={"email"}  component={Input} title="E-mail" id="email" type="email"  className="form-control" placeholder="Email" aria-label="Email" aria-describedby="mailLabel"/>
+                        <Field name={"email"}  component={Input} title="E-mail" id="email" type="email"  className="form-control" placeholder="Email" aria-label="Email" aria-describedby="mailLabel" required/>
                     </div>
                     <div className="input-group mb-3">
-                        <Field name={"password"}  component={Input} title="Пароль" id="password" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel"/>
+                        <Field name={"password"}  component={Input} title="Пароль" id="password" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel" required/>
                     </div>
                 </div>
     

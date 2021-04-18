@@ -36,6 +36,7 @@ export const setTopicData = (id, topicname, passwordtopichash) => ({type: SET_TO
 
 export const configure = (nametopic, passwordtopichash) => (dispatch) => {
     topicAPI.create_topic(nametopic, passwordtopichash).then(response => {
+        console.log(response)
         if(response.data.status){
             dispatch(setTopicData())
         }

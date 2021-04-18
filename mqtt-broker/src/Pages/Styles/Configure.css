@@ -22,6 +22,10 @@ form .title {
     padding: 0 20%;
 }
 
+form .configure_management span#topicname{
+    width: 60%;
+}
+
 form .topic_management {
     margin: 0 5%;
     padding: 2% 5%;
