@@ -1,18 +1,28 @@
-.configure {
-    padding: 0 10%;
-    padding-top: 3%;
+form {
+    padding: 0 20%;
 }
 
-.configure .title{
+form .configure_management .input-group-text {
+    width: 80px;
+    background-color: rgb(139, 56, 187);
+    color: #ffffff;
+}
+
+form .configure_management .input-group.mb-3 {
+    z-index: 0;
+    width: 300px;
+    margin-right: 20px;
+}
+
+form .title {
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20%;
-    margin-bottom: 10px;
 }
 
-.configure .topic_management {
+form .topic_management {
     margin: 0 5%;
     padding: 2% 5%;
     border: 4px solid  rgb(210, 142, 250);
@@ -23,31 +33,27 @@
 /* 888888888888888888888888888888888888888888888888888888888888888888888 */
 
 
-.configure .configure_management .topic_management .title{
+form .configure_management .topic_management .title{
     padding: 0;
     display: block;
 }
 
-.configure .configure_management .topic_management .new_topic .wrapper{
+form .configure_management .topic_management .new_topic .wrapper{
     display: flex;
     align-self: flex-start;
 }
 
-.configure .configure_management .topic_management .new_topic .wrapper .prefix {
+form .configure_management .topic_management .new_topic .wrapper .prefix {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 40px;
     margin-right: 5px;
-}
-
-.configure .configure_management .topic_management .new_topic .wrapper .email {
-    margin-right: 5px;
-}
-
-.configure .configure_management .topic_management .new_topic .wrapper .submit {
-    margin-left: 50px;
 }
 
 /* 888888888888888888888888888888888888888888888888888888888888888888888 */
 
-.configure .user_management {
+form .user_management {
     margin: 0 5%;
     padding: 2% 5%;
     border: 4px solid  rgb(210, 142, 250);
@@ -55,36 +61,42 @@
     margin-bottom: 10px;
 }
 
-.configure .user_management .title {
+form .user_management .title {
     display: block;
     padding: 0;
 }
 
-.configure .user_management .change_password {
+form .user_management .change_password {
     display: flex;
     align-items: flex-start;
 }
 
-.configure .user_management .change_password .np {
+form .user_management .change_password .np {
+    display: flex;
+    align-self: flex-start;
     margin-right: 5px;
 }
-.configure .user_management .change_password button {
-    margin-left: 50px;
+
+form .user_management .change_password .mp {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 40px;
 }
 
-.configure .port_management {
+form .port_management {
     margin: 0 5%;
     padding: 2% 5%;
     border: 4px solid  rgb(210, 142, 250);
     border-radius: 5px;
 }
 
-.configure .configure_management .port_management .title{
+form .configure_management .port_management .title{
     display: block;
     padding: 0;
 }
 
-.configure .configure_management .port_management .description{
+form .configure_management .port_management .description{
     display: flex;
     align-items: flex-start;
 }

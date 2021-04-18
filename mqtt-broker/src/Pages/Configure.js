@@ -1,11 +1,15 @@
 import React from 'react';
-import './Styles/Configure.css';
+import {reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
+import {topicAPI} from '../Api/api'
+import {configure, toggleIsFetching, setTopicData} from '../Redux/Reducers/configure-reducer';
 import {Input} from '../Common/FormsControl';
+import './Styles/Configure.css';
+import Preloader from '../Common/Preloader';
 
-const Configure = (props) => {
-
-    return(
-        <div className="configure">
+const ConfigureForm = (props) => {
+    return( 
+        <form onSubmit = {props.handleSubmit}>
             <div className = "title">
                 <h3>Конфигурация Брокера</h3>
             </div>
@@ -21,9 +25,12 @@ const Configure = (props) => {
                         <div className="title_new_topic">
                             <div className="wrapper">
                                 <div className="prefix"><b>Новый топик:</b></div>
-                                <div className="email">props.email</div>
-                                <input />
-                                <div className="submit"><button>Добавить</button></div>
+                                <div className="input-group mb-3">
+                                    <Field name={"topicname"}  component={Input} title="topic" id="topicname" type="text"  className="form-control" placeholder="topicname" aria-label="topicname" />
+                                </div>
+                                <div className = "wrapper-button">
+                                    <button className="btn btn-primary">Добавить</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,9 +53,10 @@ const Configure = (props) => {
                     <div className="description_password">
                         <p>Ваш пароль брокера MQTT по умолчанию будет таким же, как тот, который вы уже вошли в эту систему.</p>
                         <div className="change_password">
-                            <div className="np"><b>Новый MQTT пароль</b></div>
-                            <input />
-                            <button onClick={props.Submit}>Изменить</button>
+                            <div className="np">
+                                <div className="mp"><b>Новый MQTT пароль: </b></div>
+                                <div> <Field name={"topicpassword"}  component={Input} title="Пароль" id="password_topic" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel"/> </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,8 +73,42 @@ const Configure = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     )
 }
 
-export default Configure;
+const ConfigureReduxForm = reduxForm({
+    form: 'configure'
+})(ConfigureForm);
+
+class ConfigureContainer extends React.Component {
+    componentDidMount() {
+        this.props.toggleIsFetching(true);
+        topicAPI.list_topics(this.props.token).then(response => {
+            let id = response.data.topic.id;
+            let topicname = response.data.topic.name;
+            let passwordtopichash = response.data.topic.password;
+            this.props.setTopicData(id, topicname, passwordtopichash);
+            this.props.toggleIsFetching(false);
+        })
+    }
+
+    onSubmit(formData) {
+        this.props.configure(formData.topicname, formData.topicpassword);
+    }
+
+    render() {
+        return <>
+        { this.props.isFetching ? <Preloader /> : null}
+            <ConfigureReduxForm onSubmit = {this.onSubmit}/>
+        </>
+    }    
+}
+
+let mapStateToProps = (state) => ({
+    name: state.configurePage.name,
+    isFetching: state.configurePage.isFetching,
+    token: state.auth.token,
+});
+
+export default connect(mapStateToProps, {configure, toggleIsFetching, setTopicData}) (ConfigureContainer);

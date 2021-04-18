@@ -4,17 +4,26 @@ import {connect} from 'react-redux';
 import md5 from 'md5';
 import {Redirect} from 'react-router-dom';
 import {Input} from '../Common/FormsControl';
-import {login} from '../Redux/Reducers/auth-reducer';
+import {login, toggleIsFetching} from '../Redux/Reducers/auth-reducer';
+import Preloader from '../Common/Preloader';
 import './Styles/Login.css';
 
 const LoginForm = (props) => {
-    return (
+    return(
         <form onSubmit = {props.handleSubmit}>
             <div className ="wrapper-title">
                 <div className ="title">
                   <h3>Добро пожаловать в MQTT Broker!</h3>
                 </div>
             </div>
+            {
+                props.error && 
+                <div className="alert-message">
+                    <div class="alert alert-danger" role="alert">
+                       {props.error}
+                    </div>
+                 </div>
+            }
             <div className="window-login">
                 <div className="wrapper-forms">
                     <div className="input-group mb-3">
@@ -39,26 +48,44 @@ const LoginForm = (props) => {
     )
 }
 
-const LoginReduxForm = reduxForm( {
+const LoginReduxForm = reduxForm({
     form: 'login',
-})(LoginForm)
+})(LoginForm);
+
+class LoginContainer extends React.Component{
+    onSubmit(formData) {
+        
+        this.props.login(formData.email, md5(formData.password));
+    }
+
+    render() { 
+        return <>
+        {this.props.isFetching ? <Preloader /> : null}
+            <LoginReduxForm onSubmit = {this.props.onSubmit}/> 
+        </>
+    }
+}
 
 const Login = (props) => {
     const onSubmit = (formData) => {
+        props.toggleIsFetching(true);
         props.login(formData.email, md5(formData.password));
+        props.toggleIsFetching(false);
     }
-
+    
     if(props.isAuth){
         return <Redirect to={"/profile"}/>;
     }
 
     return <div>
+        { props.isFetching ? <Preloader /> : null}
         <LoginReduxForm onSubmit = {onSubmit}/> 
     </div>
 }
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
+    isFetching: state.auth.isFetching
 })
 
-export default connect(mapStateToProps, {login}) (Login);
+export default connect(mapStateToProps, {login, toggleIsFetching }) (Login);

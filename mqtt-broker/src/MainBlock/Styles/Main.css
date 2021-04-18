@@ -4,10 +4,16 @@
 
 .main .menu-wrapper {
   position: fixed;
+  z-index: 2;
 }
 
 .main .menu-login .login-title {
   position: fixed;
+  z-index: 2;
+}
+
+.main .menu-login .side-menu{
+  z-index: 2;
 }
 
 .main a{
@@ -28,6 +34,10 @@
 .main li.menu-element {
   padding-left: 2%;
   cursor: pointer;
+}
+
+.main .menu-login {
+  z-index: 2;
 }
 /* ************************************************************************* */
 

@@ -1,15 +1,20 @@
-form .wrapper-title {
+form .wrapper-title .title{
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 30%;
+    padding: 0!important;
     height: 100px;
-    
+}
+
+form .alert-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 form .window-login {
-    margin: 0 30%;
+    margin: 0 20%;
     padding: 2% 5%;
     border: 4px solid  rgb(210, 142, 250);
     border-radius: 5px;

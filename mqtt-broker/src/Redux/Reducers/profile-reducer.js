@@ -1,6 +1,6 @@
 
 const SET_USER_PROFILE = "SET_USER_PROFILE";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 let initialState = { 
     email:"",
@@ -24,6 +24,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const setUserProfile = (email) => ({type: SET_USER_PROFILE, email: email});
 
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 
 export default profileReducer;

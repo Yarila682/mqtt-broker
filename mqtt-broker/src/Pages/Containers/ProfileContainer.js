@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import Profile from "../Profile";
+import Profile from '../Profile';
 import {authAPI} from '../../Api/api';
 import {setUserProfile, toggleIsFetching} from '../../Redux/Reducers/profile-reducer';
 import {withAuthRedirect} from '../../Common/HOC/withAuthRedirect';

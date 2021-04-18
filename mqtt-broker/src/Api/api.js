@@ -38,9 +38,17 @@ export const authAPI = {
 }
 
 export const topicAPI = {
+
+  create_topic (topicname, passwordtopic){
+    return instance.post('create_topic', {
+      topic_data: {
+        topicname: topicname, 
+        passwordtopichash: passwordtopic
+    }});
+  },
+
   list_topics(token) {
-    console.log(token)
-    return instance.get('list_topics',{
+    return instance.get('topics',{
       headers: {
         'Authorization': `Bearer ${token}`,
       }

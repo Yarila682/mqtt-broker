@@ -2,7 +2,7 @@ import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
 import md5 from 'md5';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {Input} from '../Common/FormsControl';
 import {registration} from '../Redux/Reducers/auth-reducer';
 import './Styles/Registration.css';
@@ -15,6 +15,14 @@ const RegistrationForm = (props) => {
                   <h3>Добро пожаловать в MQTT Broker!</h3>
                 </div>
             </div>
+            {
+                props.error && 
+                <div className="alert-message">
+                    <div class="alert alert-danger" role="alert">
+                       {props.error}
+                    </div>
+                 </div>
+            }
             <div className="window-registration">
                 <div className="wrapper-forms">
                     <div className="input-group mb-3">
@@ -42,13 +50,22 @@ const RegistrationReduxForm = reduxForm( {
     form: 'registration',
 })(RegistrationForm)
 
-const Registration2 = (props) => {
+const Registration = (props) => {
     const onSubmit = (formData) => {
         props.registration(formData.email, md5(formData.password));
     }
+
+    if(props.isAuth){
+        return <Redirect to={"/profile"}/>;
+    }
+
     return <div>
         <RegistrationReduxForm onSubmit = {onSubmit}/> 
     </div>
 }
 
-export default connect(null, {registration}) (Registration2);
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+})
+
+export default connect(mapStateToProps, {registration}) (Registration);
