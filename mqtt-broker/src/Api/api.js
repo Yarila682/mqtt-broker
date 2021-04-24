@@ -7,11 +7,8 @@ const instance = axios.create({
   }
 });
  
-
-
 export const authAPI = {
   me(token) {
-    console.log(token)
     return instance.get('me',{
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -39,16 +36,28 @@ export const authAPI = {
 
 export const topicAPI = {
 
-  create_topic (topicname, passwordtopic){
+  create_topic (topicname, passwordtopic, token){
     return instance.post('create_topic', {
       topic_data: {
         topicname: topicname, 
-        passwordtopichash: passwordtopic
-    }});
+        passwordtopic: passwordtopic
+      }}, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },}
+      );
   },
 
   list_topics(token) {
     return instance.get('topics',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+  },
+
+  delete_topic(token) {
+    return instance.delete('delete_topic',{
       headers: {
         'Authorization': `Bearer ${token}`,
       }

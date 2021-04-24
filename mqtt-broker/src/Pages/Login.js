@@ -52,20 +52,6 @@ const LoginReduxForm = reduxForm({
     form: 'login',
 })(LoginForm);
 
-class LoginContainer extends React.Component{
-    onSubmit(formData) {
-        
-        this.props.login(formData.email, md5(formData.password));
-    }
-
-    render() { 
-        return <>
-        {this.props.isFetching ? <Preloader /> : null}
-            <LoginReduxForm onSubmit = {this.props.onSubmit}/> 
-        </>
-    }
-}
-
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.toggleIsFetching(true);

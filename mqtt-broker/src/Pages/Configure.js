@@ -1,13 +1,12 @@
 import React from 'react';
-import {reduxForm, Field} from 'redux-form';
-import {connect} from 'react-redux';
-import {topicAPI} from '../Api/api'
-import {configure, toggleIsFetching, setTopicData} from '../Redux/Reducers/configure-reducer';
+import {Field} from 'redux-form'
 import {Input} from '../Common/FormsControl';
 import './Styles/Configure.css';
-import Preloader from '../Common/Preloader';
 
 const ConfigureForm = (props) => {
+
+    let topics = props.topics;
+    topics = topics.map((m) => <li className="topic-element">{m.topic_data.topicname}<span className="delete" onClick={props.deleteTopic}></span></li>)
     return( 
         <form onSubmit = {props.handleSubmit}>
             <div className = "title">
@@ -38,8 +37,10 @@ const ConfigureForm = (props) => {
                         <div className = "title">
                             <b>Доступные топики:</b>
                         </div>
-                        <div className="list">
-                            props.topics
+                        <div>
+                            <ul className="topic_list">
+                                {topics}
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -77,42 +78,4 @@ const ConfigureForm = (props) => {
     )
 }
 
-const ConfigureReduxForm = reduxForm({
-    form: 'configure'
-})(ConfigureForm);
-
-class ConfigureContainer extends React.Component {
-    componentDidMount() {
-        this.props.toggleIsFetching(true);
-        topicAPI.list_topics(this.props.token).then(response => {
-            console.log(response)
-            if(response.data.status){
-                let id = response.data.topic.id;
-                let topicname = response.data.topic.name;
-                let passwordtopichash = response.data.topic.password;
-                this.props.setTopicData(id, topicname, passwordtopichash);
-            }
-            this.props.toggleIsFetching(false);
-        })
-    }
-
-    onSubmit(formData) {
-        this.props.configure(formData.topicname, formData.topicpassword);
-    }
-
-    render() {
-        return <>
-        { this.props.isFetching ? <Preloader /> : null}
-            <ConfigureReduxForm onSubmit = {this.onSubmit} {...this.props}/>
-        </>
-    }    
-}
-
-let mapStateToProps = (state) => ({
-    email: state.profilePage.email,
-    name: state.configurePage.name,
-    isFetching: state.configurePage.isFetching,
-    token: state.auth.token,
-});
-
-export default connect(mapStateToProps, {configure, toggleIsFetching, setTopicData}) (ConfigureContainer);
+export default ConfigureForm;

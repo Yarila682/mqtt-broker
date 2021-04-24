@@ -3,14 +3,14 @@ form {
 }
 
 form .configure_management .input-group-text {
-    width: 80px;
+  
     background-color: rgb(139, 56, 187);
     color: #ffffff;
 }
 
 form .configure_management .input-group.mb-3 {
     z-index: 0;
-    width: 300px;
+    
     margin-right: 20px;
 }
 
@@ -53,6 +53,24 @@ form .configure_management .topic_management .new_topic .wrapper .prefix {
     width: 150px;
     height: 40px;
     margin-right: 5px;
+}
+
+form .configure_management .topic_management ul.topic_list li span{
+    position: relative;
+    top: 4px;
+    left: 10px;
+    cursor: pointer;
+}
+
+form .configure_management .topic_management ul.topic_list li span.delete::after{
+    content: '';
+    position: relative;
+    display: inline-block;
+    background-image: url(../../Images/delete.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 18px;
+    height: 18px;
 }
 
 /* 888888888888888888888888888888888888888888888888888888888888888888888 */
