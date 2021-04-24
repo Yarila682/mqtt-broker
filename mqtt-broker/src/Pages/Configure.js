@@ -6,7 +6,9 @@ import './Styles/Configure.css';
 const ConfigureForm = (props) => {
 
     let topics = props.topics;
-    topics = topics.map((m) => <li className="topic-element">{m.topic_data.topicname}<span className="delete" onClick={props.deleteTopic}></span></li>)
+    //() => {props.deleteTopic(m.topic_data.topicname)}
+    //props.token, m.topic_data.topicname,
+    topics = topics.map((m, i) => <li className="topic-element">{m.topic_data.topicname}<span className="delete" onClick={() => {props.DeleteTopic(props.token, m.topic_data.topicname, i)}}></span></li>)
     return( 
         <form onSubmit = {props.handleSubmit}>
             <div className = "title">

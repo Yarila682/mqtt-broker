@@ -56,10 +56,15 @@ export const topicAPI = {
     });
   },
 
-  delete_topic(token) {
+  delete_topic(token, topicname) {
     return instance.delete('delete_topic',{
       headers: {
         'Authorization': `Bearer ${token}`,
+      },
+      data: {
+        topic_data: {
+          topicname: topicname
+        }
       }
     });
   },

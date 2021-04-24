@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import md5 from 'md5';
-import {AddTopic, toggleIsFetching, setTopicData, setTopicList, GetTopics, deleteTopic} from '../../Redux/Reducers/configure-reducer';
+import {AddTopic, toggleIsFetching, setTopicData, setTopicList, GetTopics, DeleteTopic} from '../../Redux/Reducers/configure-reducer';
 import ConfigureForm from '../Configure';
 import {withAuthRedirect} from '../../Common/HOC/withAuthRedirect';
 import Preloader from '../../Common/Preloader';
@@ -55,10 +55,11 @@ let AuthRedirectComponent = withAuthRedirect(ConfigureContainer);
 let mapStateToProps = (state) => ({
     email: state.profilePage.email,
     password: state.profilePage.password,
+    id: state.auth.id,
     topics: state.configurePage.topics,
     isChange: state.configurePage.isChange,
     isFetching: state.configurePage.isFetching,
     token: state.auth.token,
 });
 
-export default connect(mapStateToProps, {AddTopic, GetTopics, toggleIsFetching, setTopicData, setTopicList, deleteTopic}) (AuthRedirectComponent);
+export default connect(mapStateToProps, {AddTopic, GetTopics, toggleIsFetching, setTopicData, setTopicList, DeleteTopic}) (AuthRedirectComponent);
