@@ -1,7 +1,6 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import md5 from 'md5';
 import {Link, Redirect} from 'react-router-dom';
 import {Input} from '../Common/FormsControl';
 import {registration} from '../Redux/Reducers/auth-reducer';
@@ -52,7 +51,7 @@ const RegistrationReduxForm = reduxForm( {
 
 const Registration = (props) => {
     const onSubmit = (formData) => {
-        props.registration(formData.email, md5(formData.password));
+        props.registration(formData.email, formData.password);
     }
 
     if(props.isAuth){

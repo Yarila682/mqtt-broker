@@ -20,7 +20,7 @@ export const authAPI = {
     return instance.post('registration', {
       user_data: {
         email: email,
-        passwordhash: password,
+        password: password,
       }
     })
   },
@@ -29,7 +29,7 @@ export const authAPI = {
     return instance.post('login', {
         user_data: {
         email: email,
-        passwordhash: password,
+        password: password,
       }});
   }
 }

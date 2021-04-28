@@ -1,7 +1,6 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import md5 from 'md5';
 import {Redirect} from 'react-router-dom';
 import {Input} from '../Common/FormsControl';
 import {login, toggleIsFetching} from '../Redux/Reducers/auth-reducer';
@@ -55,7 +54,7 @@ const LoginReduxForm = reduxForm({
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.toggleIsFetching(true);
-        props.login(formData.email, md5(formData.password));
+        props.login(formData.email, formData.password);
         props.toggleIsFetching(false);
     }
     
