@@ -68,8 +68,9 @@ export const login = (email, password) => (dispatch) => {
             dispatch(setAuthToken(response.data.user.token))
             let id = response.data.user.id;
             let email = response.data.user.user_data.email;
+            let password = response.data.user.user_data.password;
             let isAuth = response.data.status;
-            dispatch(setAuthUserData({id, email, isAuth}));
+            dispatch(setAuthUserData({id, email, password, isAuth}));
         }else{
             dispatch(stopSubmit("login", {_error: response.data.message}));
         }

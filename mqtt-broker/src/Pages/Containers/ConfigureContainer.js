@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
-import md5 from 'md5';
 import {AddTopic, toggleIsFetching, setTopicData, setTopicList, GetTopics, DeleteTopic} from '../../Redux/Reducers/configure-reducer';
 import ConfigureForm from '../Configure';
 import {withAuthRedirect} from '../../Common/HOC/withAuthRedirect';
@@ -26,19 +25,12 @@ class ConfigureContainer extends React.Component {
 
     onSubmit = (formData) => {
         let topicName = this.props.email + '/' + formData.topicname;
-        let topicPassword = '';
       
         if(this.props.topics.find(item => item.topic_data.topicname === topicName)){
             alert('Имя топика уже занято!');
             return
         }
-        
-        if(!formData.topicpassword){
-            topicPassword = this.props.password;
-        }else{
-            topicPassword = md5(formData.topicpassword);
-        }
-        this.props.AddTopic(topicName, topicPassword, this.props.token);
+        this.props.AddTopic(topicName, formData.topicpassword, this.props.token);
     }
 
 
@@ -47,7 +39,7 @@ class ConfigureContainer extends React.Component {
         { this.props.isFetching ? <Preloader /> : null}
             <ConfigureReduxForm onSubmit = {this.onSubmit} {...this.props}/>
         </>
-    }    
+    }
 }
 
 let AuthRedirectComponent = withAuthRedirect(ConfigureContainer);
