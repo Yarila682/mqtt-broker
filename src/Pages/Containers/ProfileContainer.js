@@ -12,12 +12,12 @@ const ProfileReduxForm = reduxForm({
 })(ProfileForm);
 
 class ProfileContainer extends React.Component {
+
     componentDidMount(){
         this.props.toggleIsFetching(true);
-        console.log(this.props.token)
         authAPI.me(this.props.token).then(response => {
             console.log(response)
-            this.props.setUserProfile(response.data.profile.user_data.email, response.data.profile.user_data.password);
+            this.props.setUserProfile(response.data.profile.user_data.email, response.data.profile.user_data.password, response.data.profile.user_data.mosquitto);
             this.props.toggleIsFetching(false);
         });
     }

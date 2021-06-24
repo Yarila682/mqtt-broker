@@ -3,7 +3,7 @@ import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 import {Input} from '../Common/FormsControl';
-import {registration} from '../Redux/Reducers/auth-reducer';
+import {registration, setRegistered} from '../Redux/Reducers/auth-reducer';
 import './Styles/Registration.css';
 
 const RegistrationForm = (props) => {
@@ -37,7 +37,7 @@ const RegistrationForm = (props) => {
                     <Link to = {'/login'}>Уже есть аккаунт?</Link>
                 </div>               
                 <div className = "wrapper-button">
-                    <button className="btn btn-primary">Войти</button>
+                    <button className="btn btn-primary">Создать</button>
                 </div>
             </div>
             </div>
@@ -54,8 +54,9 @@ const Registration = (props) => {
         props.registration(formData.email, formData.password);
     }
 
-    if(props.isAuth){
-        return <Redirect to={"/profile"}/>;
+    if(props.isRegistered){
+        props.setRegistered(false);
+        return <Redirect to={"/login"}/>;
     }
 
     return <div>
@@ -65,6 +66,7 @@ const Registration = (props) => {
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
+    isRegistered: state.auth.isRegistered
 })
 
-export default connect(mapStateToProps, {registration}) (Registration);
+export default connect(mapStateToProps, {registration, setRegistered}) (Registration);

@@ -1,5 +1,6 @@
 import * as axios from "axios";
 
+//Настройка конфигурации экземпляра axios
 const instance = axios.create({
   baseURL: 'http://127.0.0.1:8080/',
   headers: {
@@ -35,7 +36,34 @@ export const authAPI = {
         "Access-Control-Allow-Headers": "*"
       }
     });
+  },
+
+  logout() {
+    return instance.delete('auth/sign-out');
   }
+}
+
+export const mosquittoAPI = {
+  mosquittoOn(token) {
+    return instance.post('api/mosquitto/launch', {
+      mosquittoOn: true
+    },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+  },
+  mosquittoOff(token) {
+    return instance.post('api/mosquitto/launch', {
+      mosquittoOn: false
+    },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+  },
 }
 
 export const topicAPI = {
@@ -67,28 +95,6 @@ export const topicAPI = {
         'Authorization': `Bearer ${token}`,
       }
     });
-  },
-
-  mosquittoOn(token) {
-    return instance.post('api/profile/mosquitto', {
-      mosquitto_data: {
-        mosquittoOn: true
-      }
-    },
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-  },
-
-  mosquittoOff(token) {
-    return instance.delete('api/profile/mosquitto', 
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      })
   },
 
 }

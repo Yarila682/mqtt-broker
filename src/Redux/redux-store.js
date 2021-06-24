@@ -6,6 +6,7 @@ import configureReducer from './Reducers/configure-reducer';
 import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 
+//Объект редьюсеров приложения
 let reducers = combineReducers({
     auth: authReducer,
     menuitemsPage: menuItemReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
     configurePage: configureReducer,
     form: formReducer,
 });
+//Создание стора приложения
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 window.store = store;
