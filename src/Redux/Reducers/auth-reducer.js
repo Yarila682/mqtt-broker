@@ -10,11 +10,11 @@ const SET_IS_REGISTERED = 'SET_IS_REGISTERED';
 
 //Начальный state
 let initialState = {
-    token: null,
-    isAuth: false,
+    token: localStorage.getItem('authToken'),
+    isAuth: !!localStorage.getItem('authToken'),
     isRegistered: false,
     isFetching: false,
-}
+};
 
 //Редьюсер аутентификации
 const authReducer = (state = initialState, action) => {
@@ -50,16 +50,23 @@ const setAuthUser = (isAuth) => ({type: SET_IS_AUTH, isAuth});
 export const setRegistered = (isRegistered) => ({type: SET_IS_REGISTERED, isRegistered});
 
 
-export const getAuthUserData = (token) => (dispatch) => {
-    authAPI.me(token).then(response => {
-        console.log(response);
-        if(response.data.status){
-            let id = response.data.profile.id;
-            let email = response.data.profile.user_data.email;
-            dispatch(setAuthUserData(id, email, true, response.data.message));
-        }
-    })
-}
+export const getAuthUserData = () => (dispatch) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        authAPI.me(token).then(response => {
+            console.log(response);
+            if (response.status) {
+                const { id, email } = response.data.user;
+                dispatch(setAuthUserData({ id, email, isAuth: true }));
+                dispatch(setAuthToken(token)); // Optional, to ensure Redux has the token
+            } else {
+                localStorage.removeItem('authToken');
+                dispatch(setAuthUserData({ id: null, email: null, isAuth: false }));
+                dispatch(setAuthToken(null));
+            }
+        });
+    }
+};
 
 //ThunkCreator для получения отправки данных из формы регистрации
 export const registration = (email, password) => (dispatch) => {
@@ -77,23 +84,36 @@ export const registration = (email, password) => (dispatch) => {
 export const login = (email, password) => (dispatch) => {
     authAPI.login(email, password).then(response => {
         console.log(response);
-        if(response.data.status){
-            dispatch(setAuthToken(response.data.token))
-            dispatch(setAuthUser(true))
-        }else{
-            dispatch(stopSubmit("login", {_error: response.data.message}));
+        if (response.status === 200) {
+            const token = response.data.access_token;
+
+            // Save token to localStorage
+            localStorage.setItem('authToken', token);
+
+            // Update Redux state
+            dispatch(setAuthToken(token));
+            dispatch(setAuthUser(true));
+            console.log("Login successful, token saved:", token);
+        } else {
+            dispatch(stopSubmit("login", { _error: response.data.error }));
+            console.log("Login failed:", response.data.error);
         }
-    })
-}
+    });
+};
 
 //ThunkCreator для выхода
 export const logout = () => (dispatch) => {
     authAPI.logout().then(response => {
-        if(response.data.status){
-            dispatch(setAuthUserData(0, null, false, null));
+        if (response.data.status) {
+            // Remove token from localStorage
+            localStorage.removeItem('authToken');
+
+            // Update Redux state
+            dispatch(setAuthUserData({ id: null, email: null, isAuth: false }));
             dispatch(setAuthToken(null));
+            console.log("Logout successful, token removed.");
         }
-    })
-}
+    });
+};
 
 export default authReducer;

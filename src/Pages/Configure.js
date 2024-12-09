@@ -6,9 +6,13 @@ import './Styles/Configure.css';
 const ConfigureForm = (props) => {
 
     let topics = props.topics;
-    //() => {props.deleteTopic(m.topic_data.topicname)}
-    //props.token, m.topic_data.topicname,
-    topics = topics.map((m, i) => <li className="topic-element">{m.topic_data.topicname}<span className="delete" onClick={() => {props.DeleteTopic(props.token, m.id, i)}}></span></li>)
+    //() => {props.deleteTopic(m.topic_data.name)}
+    //props.token, m.topic_data.name,
+    console.log(topics)
+    if (topics) {
+        topics = topics.map((m, i) => <li className="topic-element">{m.name}<span className="delete" onClick={() => {props.DeleteTopic(props.token, m.id, i)}}></span></li>)
+    }
+    
     return( 
         <form onSubmit = {props.handleSubmit}>
             <div className = "title">
@@ -27,7 +31,7 @@ const ConfigureForm = (props) => {
                             <div className="wrapper">
                                 <div className="prefix"><b>Новый топик:</b></div>
                                 <div className="input-group mb-3">
-                                    <Field name={"topicname"}  component={Input} title={props.email} id="topicname" type="text"  className="form-control" placeholder="topicname" aria-label="topicname" required/>
+                                    <Field name={"name"}  component={Input} title={props.email} id="name" type="text"  className="form-control" placeholder="name" aria-label="name" required/>
                                 </div>
                                 <div className = "wrapper-button">
                                     <button className="btn btn-primary">Добавить</button>
@@ -43,23 +47,6 @@ const ConfigureForm = (props) => {
                             <ul className="topic_list">
                                 {topics}
                             </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="user_management">
-                    <div className="title">
-                        <h4>Пользовательское управление</h4>
-                    </div>
-                    <div className="description_username">
-                        <p>Имя пользователя для вашего MQTT-соединения: props.name</p>
-                    </div>
-                    <div className="description_password">
-                        <p>Ваш пароль брокера MQTT по умолчанию будет таким же, как тот, с которым вы уже вошли в эту систему.</p>
-                        <div className="change_password">
-                            <div className="np">
-                                <div className="mp"><b>Новый MQTT пароль: </b></div>
-                                <div> <Field name={"topicpassword"}  component={Input} title="Пароль" id="password_topic" type="password" className="form-control" placeholder="Password" aria-label="Password" aria-describedby="passwordLabel"/> </div>
-                            </div>
                         </div>
                     </div>
                 </div>

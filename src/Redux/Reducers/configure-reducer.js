@@ -14,7 +14,7 @@ let initialState = {
             mqqt_tcp_port: 1883,
             mqtt_over_websocket_port: 8883,
             secure_mqtt: 3883,
-            topicname: null,
+            name: null,
             passwordtopichash: null,
         }
     },
@@ -26,12 +26,22 @@ const configureReducer = (state = initialState, action) => {
 
     switch(action.type){
         case SET_TOPIC_DATA:{
-            let topic = action.topic
+            if (state.topics) {
+                let topic = action.topic
             return {
                 ...state,
                 topics: [...state.topics, topic],
                 
             }
+            }
+            else {
+                let topic = action.topic
+                return {
+                    ...state,
+                    topics: [topic],
+                }
+            }
+            
         }
         case SET_TOPIC_LIST: {
             return {
@@ -61,28 +71,27 @@ export const setTopicList = (topics) => ({type: SET_TOPIC_LIST, topics: topics})
 export const deleteTopic = (index) => ({type: DELETE_TOPIC, index: index})
 
 
-export const DeleteTopic = (token, topicname, index) => (dispatch) =>{
-    topicAPI.delete_topic(token, topicname).then(response => {
+export const DeleteTopic = (token, name, index) => (dispatch) =>{
+    topicAPI.delete_topic(token, name).then(response => {
         if(response.status){
             dispatch(deleteTopic(index));
         }
     })
 }
 
-export const AddTopic = (topicname, passwordtopichash, token) => (dispatch) => {
-    topicAPI.create_topic(topicname, passwordtopichash, token).then(response => {
+export const AddTopic = (name, passwordtopichash, token) => (dispatch) => {
+    topicAPI.create_topic(name, passwordtopichash, token).then(response => {
         console.log(response)
         dispatch(setTopicData(response.data.topic));
     })
 }
 
-export const GetTopics = (token) => (dispatch) => {
-    topicAPI.list_topics(token).then(response => {
-        console.log(response)
-        if(response.data.status){
+export const GetTopics = (token, email) => (dispatch) => {
+    topicAPI.list_topics(token, email).then(response => {
+        if (response.status === 200) {
             dispatch(setTopicList(response.data.topics));
         }
-    })
-}
+    });
+};
 
 export default configureReducer;

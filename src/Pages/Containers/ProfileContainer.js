@@ -17,7 +17,7 @@ class ProfileContainer extends React.Component {
         this.props.toggleIsFetching(true);
         authAPI.me(this.props.token).then(response => {
             console.log(response)
-            this.props.setUserProfile(response.data.profile.user_data.email, response.data.profile.user_data.password, response.data.profile.user_data.mosquitto);
+            this.props.setUserProfile(response.data.user.email, response.data.user.password, response.data.user.mosquitto_on);
             this.props.toggleIsFetching(false);
         });
     }
