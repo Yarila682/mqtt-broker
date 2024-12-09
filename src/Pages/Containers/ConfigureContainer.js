@@ -24,13 +24,16 @@ class ConfigureContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
-        let topicName = this.props.email + '/' + formData.topicname;
-      
-        if(this.props.topics.find(item => item.topic_data.topicname === topicName)){
+        let Name = formData.name;
+        console.log(this.props.topics)
+        if (this.props.topics) {
+            if(this.props.topics.find(item => item.name === Name)){
             alert('Имя топика уже занято!');
             return
         }
-        this.props.AddTopic(topicName, formData.topicpassword, this.props.token);
+        }
+        
+        this.props.AddTopic(Name, formData.topicpassword, this.props.token);
     }
 
 

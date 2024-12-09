@@ -2,7 +2,7 @@ import * as axios from "axios";
 
 //Настройка конфигурации экземпляра axios
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8080/',
+  baseURL: 'http://127.0.0.1:8000/',
   headers: {
     'Access-Control-Allow-Headers': 'x-requested-with, Content-Type, origin, authorization, accept, x-access-token',
   }
@@ -10,7 +10,7 @@ const instance = axios.create({
 
 export const authAPI = {
   me(token) {
-    return instance.get('api/profile/me', {
+    return instance.get('user/me', {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -19,19 +19,15 @@ export const authAPI = {
 
   registration(email, password) {
     return instance.post('auth/sign-up', {
-      user_data: {
         email: email,
         password: password,
-      }
     })
   },
 
   login(email, password) {
     return instance.post('auth/sign-in', {
-      user_data: {
         email: email,
         password: password,
-      },
       headers: {
         "Access-Control-Allow-Headers": "*"
       }
@@ -45,8 +41,8 @@ export const authAPI = {
 
 export const mosquittoAPI = {
   mosquittoOn(token) {
-    return instance.post('api/mosquitto/launch', {
-      mosquittoOn: true
+    return instance.post('mosquitto/launch', {
+      mosquitto_on: true
     },
       {
         headers: {
@@ -55,8 +51,8 @@ export const mosquittoAPI = {
       })
   },
   mosquittoOff(token) {
-    return instance.post('api/mosquitto/launch', {
-      mosquittoOn: false
+    return instance.post('/mosquitto/launch', {
+      mosquitto_on: false
     },
       {
         headers: {
@@ -67,12 +63,11 @@ export const mosquittoAPI = {
 }
 
 export const topicAPI = {
-  create_topic(topicname, passwordtopic, token) {
-    return instance.post('api/topics/create', {
-      topic_data: {
-        topicname: topicname,
-        passwordtopic: passwordtopic
-      }
+  create_topic(name, passwordtopic, token) {
+    return instance.post('topic/', {
+        name: name,
+        can_read: true,
+        can_write: true
     }, {
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -82,7 +77,7 @@ export const topicAPI = {
   },
 
   list_topics(token) {
-    return instance.get('api/topics/', {
+    return instance.get('topic/', {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -90,7 +85,7 @@ export const topicAPI = {
   },
 
   delete_topic(token, id) {
-    return instance.delete(`api/topics/${id}`, {
+    return instance.delete(`topic/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
